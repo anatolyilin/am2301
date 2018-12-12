@@ -120,7 +120,7 @@ static int am2301_show(struct seq_file *m, void *v)
 		start = ktime_get_real();
 		wait_for_gpio(LOW);
 		stop = ktime_get_real();
-		res = (int)(stop.tv64 - start.tv64);
+		res = (int)(stop - start);
 
 		// 1st data bit is shorter, why ? 
 
