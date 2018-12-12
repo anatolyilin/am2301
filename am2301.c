@@ -145,10 +145,10 @@ wait_for_gpio(HIGH);
 	if (((data[0] + data[1] + data[2] + data[3]) & 0xff) == data[4]) {
 		strcpy(status, "ok");
 	} else  {
-		strcpy(status, "error, checksum");
+		strcpy(status, "error_checksum");
 	}
 	if (nodata_error) {
-		strcpy(status, "error, no data");
+		strcpy(status, "error_no_data");
 	}
 
 	// check flag for negative temperatures
@@ -157,10 +157,10 @@ wait_for_gpio(HIGH);
 	if (data[2] & 0x80) {
 		data[2] = data[2] & 0x7f;
 		t  = (data[2]<<8) + data[3];
-		seq_printf(m, "%d.%d RH, -%d.%d C, %s\n", rh/10, rh%10, t/10, t%10, status);
+		seq_printf(m, "%d.%d;-%d.%d;%s\n", rh/10, rh%10, t/10, t%10, status);
 	} else {
 		t = (data[2]<<8) + data[3];
-		seq_printf(m, "%d.%d RH, %d.%d C, %s\n", rh/10, rh%10, t/10, t%10, status);
+		seq_printf(m, "%d.%d;%d.%d;%s\n", rh/10, rh%10, t/10, t%10, status);
 	}
 
         return 0;
