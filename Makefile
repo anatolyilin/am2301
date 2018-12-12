@@ -1,12 +1,14 @@
-MOD=am2301
+obj-m := am2301.o
 
-KERNEL_SRC=/lib/modules/$(shell uname -r)/build
-
-obj-m := $(MOD).o
-
+SRC := $(shell pwd)
 
 all:
-	ARCH=arm CROSS_COMPILE=${CCPREFIX} $(MAKE) -C ${KERNEL_SRC} M=$(PWD) modules
+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC)
+
+modules_install:
+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules_install
 
 clean:
-	ARCH=arm CROSS_COMPILE=${CCPREFIX} $(MAKE) -C ${KERNEL_SRC} M=$(PWD) clean
+	rm -f *.o *~ core .depend .*.cmd *.ko *.mod.c
+	rm -f Module.markers Module.symvers modules.order
+	rm -rf .tmp_versions Modules.symvers
