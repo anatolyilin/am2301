@@ -8,5 +8,22 @@ It uses GPIO24 as default, GPIO is configurable as module parameter (gpio).
 The driver uses procfs interface (/proc/am2301), 
 reporting T, RH and read status [OK/error, checksum/error, no data]
 
-# am2301
-# am2301
+# Installation
+```
+sudo apt-get update 
+sudo apt-get upgrade
+
+sudo apt install build-essential
+sudo apt-get install raspberrypi-kernel-headers
+
+make
+```
+
+Wire up the sensor. 
+```
+cat /proc/am2301
+```
+Should give result like:
+```
+22.2;25.0;ok
+```
